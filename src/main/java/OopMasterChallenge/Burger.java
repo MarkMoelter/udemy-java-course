@@ -11,21 +11,35 @@ public class Burger extends Item {
    */
   @Getter
   private final ArrayList<Item> toppings = new ArrayList<>();
+
   /**
    * The maximum number of toppings to add to the burger.
    */
   @Setter
   private int maxToppings = 3;
 
+  /**
+   * Burger constructor.
+   * @param name The name of the burger.
+   * @param price The price of the burger.
+   */
   public Burger(String name, double price) {
     super("Burger", name, price);
   }
 
+  /**
+   * Get the name of the burger.
+   * @return The name of the burger.
+   */
   @Override
   public String getName() {
     return super.getName() + " BURGER";
   }
 
+  /**
+   * Get the price of the burger plus the price of the toppings.
+   * @return The price of the burger plus toppings.
+   */
   @Override
   public double getAdjustedPrice() {
     double total = getBasePrice();
@@ -35,6 +49,11 @@ public class Burger extends Item {
     return total;
   }
 
+  /**
+   * Get the price of each extra or topping.
+   * @param toppingName The name of the topping.
+   * @return The price of the topping.
+   */
   public double getExtraPrice(String toppingName) {
     return switch (toppingName.toUpperCase()) {
       case "AVOCADO", "CHEESE" -> 1.0;
@@ -44,8 +63,7 @@ public class Burger extends Item {
   }
 
   /**
-   * Add a topping to the burger. Can add toppings up to the limit.
-   *
+   * Add a topping to the burger.
    * @param topping The topping to add to the burger.
    */
   private void addTopping(Item topping) {
@@ -56,12 +74,17 @@ public class Burger extends Item {
     }
   }
 
-  public void addToppings(String topping1, String topping2, String topping3) {
-    addTopping(new Item("topping", topping1, getExtraPrice(topping1)));
-    addTopping(new Item("topping", topping2, getExtraPrice(topping2)));
-    addTopping(new Item("topping", topping3, getExtraPrice(topping3)));
+  /**
+   * Add a topping to the burger
+   * @param toppingType The name of the topping to add to the burger.
+   */
+  public void addTopping(String toppingType) {
+    addTopping(new Item("topping", toppingType, getExtraPrice(toppingType)));
   }
 
+  /**
+   * Print an itemized list of the burger and its toppings.
+   */
   public void printItemizedList() {
     printItem("BASE BURGER", getBasePrice());
     for (var topping : toppings) {
@@ -69,6 +92,9 @@ public class Burger extends Item {
     }
   }
 
+  /**
+   * Print the itemized list and the burger's total.
+   */
   @Override
   public void printItem() {
     printItemizedList();
