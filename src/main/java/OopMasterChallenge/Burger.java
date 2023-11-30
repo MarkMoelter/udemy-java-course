@@ -1,55 +1,78 @@
 package OopMasterChallenge;
 
 import java.util.ArrayList;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-@Getter
-@ToString
-public class Burger {
-
-  /**
-   * The price of the burger with no toppings.
-   */
-  protected final double basePrice;
-
-  /**
-   * The maximum number of toppings to add to the burger.
-   */
-  protected int maxToppings = 3;
+public class Burger extends Item {
 
   /**
    * The list of toppings added to the burger.
    */
-  private ArrayList<Topping> toppings = new ArrayList<>();
+  @Getter
+  private final ArrayList<Item> toppings = new ArrayList<>();
+  /**
+   * The maximum number of toppings to add to the burger.
+   */
+  @Setter
+  private int maxToppings = 3;
+
+  public Burger(String name, double price) {
+    super("Burger", name, price);
+  }
+
+  @Override
+  public String getName() {
+    return super.getName() + " BURGER";
+  }
+
+  @Override
+  public double getAdjustedPrice() {
+    double total = getBasePrice();
+    for (Item topping : toppings) {
+      total += topping.getAdjustedPrice();
+    }
+    return total;
+  }
+
+  public double getExtraPrice(String toppingName) {
+    return switch (toppingName.toUpperCase()) {
+      case "AVOCADO", "CHEESE" -> 1.0;
+      case "BACON", "HAM", "SALAMI" -> 1.5;
+      default -> 0.0;
+    };
+  }
 
   /**
    * Add a topping to the burger. Can add toppings up to the limit.
+   *
    * @param topping The topping to add to the burger.
    */
-  public void addTopping(Topping topping) {
+  private void addTopping(Item topping) {
     if (toppings.size() < maxToppings) {
-      System.out.printf("Adding topping, %s%n", topping);
       toppings.add(topping);
     } else {
       System.out.println("Max topping limit reached, unable to add topping");
     }
   }
 
-  /**
-   * The price of the burger with the toppings included
-   * @return The price of the burger and toppings combined.
-   */
-  public double getTotalPrice() {
-    double total = basePrice;
-    for (Topping topping : toppings) {
-      total += topping.price();
-    }
-    return total;
+  public void addToppings(String topping1, String topping2, String topping3) {
+    addTopping(new Item("topping", topping1, getExtraPrice(topping1)));
+    addTopping(new Item("topping", topping2, getExtraPrice(topping2)));
+    addTopping(new Item("topping", topping3, getExtraPrice(topping3)));
   }
 
+  public void printItemizedList() {
+    printItem("BASE BURGER", getBasePrice());
+    for (var topping : toppings) {
+      topping.printItem();
+    }
+  }
+
+  @Override
+  public void printItem() {
+    printItemizedList();
+    System.out.println("-".repeat(30));
+    super.printItem();
+  }
 }
