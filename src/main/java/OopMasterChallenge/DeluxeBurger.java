@@ -3,12 +3,17 @@ package OopMasterChallenge;
 public class DeluxeBurger extends Burger {
 
   public DeluxeBurger(double basePrice) {
-    super(basePrice);
-    maxToppings = 5;
+    super("deluxe", basePrice);
+    setMaxToppings(5);
   }
 
   @Override
-  public double getTotalPrice() {
-    return basePrice;
+  public double getAdjustedPrice() {
+    return getBasePrice();
+  }
+
+  @Override
+  public double getExtraPrice(String toppingName) {
+    return 0.0;
   }
 }

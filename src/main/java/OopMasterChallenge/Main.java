@@ -12,5 +12,14 @@ public class Main {
     secondMeal.addBurgerToppings("lettuce", "cheese", "mayo");
     secondMeal.setDrinkSize("small");
     secondMeal.printItemizedList();
+
+    Meal deluxeMeal = new Meal(new DeluxeBurger(5.0), "coke", "fries");
+
+    deluxeMeal.addBurgerTopping("Bacon");
+    deluxeMeal.addBurgerTopping("Bacon");
+    deluxeMeal.addBurgerTopping("Bacon");
+    deluxeMeal.addBurgerTopping("Bacon");
+    deluxeMeal.addBurgerTopping("Bacon");
+    deluxeMeal.printItemizedList();
   }
 }

@@ -34,12 +34,22 @@ public class Meal {
   /**
    * Create a meal consisting of a burger, a drink, and a side.
    *
-   * @param burgerType The type of burger.
+   * @param burger The type of burger.
    * @param drinkType  The type of drink.
    * @param sideType   The type of side.
    */
+  public Meal(Burger burger, String drinkType, String sideType) {
+    this.burger = burger;
+    this.drink = new Item("drink", drinkType, 1.00);
+    this.side = new Item("side", sideType, 1.50);
+  }
+
   public Meal(String burgerType, String drinkType, String sideType) {
-    this.burger = new Burger(burgerType, 4.0);
+    this(new Burger(burgerType, 4.0), drinkType, sideType);
+  }
+
+  public Meal(DeluxeBurger burger, String drinkType, String sideType) {
+    this.burger = burger;
     this.drink = new Item("drink", drinkType, 1.00);
     this.side = new Item("side", sideType, 1.50);
   }
@@ -86,6 +96,10 @@ public class Meal {
     for (String topping : toppings) {
       burger.addTopping(topping);
     }
+  }
+
+  public void addBurgerTopping(String topping) {
+    burger.addTopping(topping);
   }
 
   /**
