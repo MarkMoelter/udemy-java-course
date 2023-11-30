@@ -3,21 +3,13 @@ package OopMasterChallenge;
 public class Main {
 
   public static void main(String[] args) {
-    Meal defaultMeal = new Meal();
+    Item coke = new Item("drink", "coke", 1.50);
+    coke.printItem();
+    coke.setSize("large");
+    coke.printItem();
 
-    Meal regularMeal = new Meal(
-        new Burger(3.50),
-        new Drink("Sprite", "Small"),
-        new Side("Jalapeno Poppers", 2.00)
-    );
+    Item avocado = new Item("topping", "avocado", 1.50);
+    avocado.printItem();
 
-    Meal deluxeMeal = new Meal(
-        new DeluxeBurger(4.50),
-        new Drink("Fanta", "Large"),
-        new Side("Onion Rings", 1.00)
-    );
-
-    defaultMeal.addTopping(new Topping("Ketchup", 0.50));
-    defaultMeal.printReceipt();
   }
 }
